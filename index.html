@@ -18,7 +18,47 @@ function parseCSV(s){let rows=[],row=[],v='',q=false;for(let i=0;i<s.length;i++)
 function norm(s){return String(s||'').trim().toLowerCase().replace(/[\s_\-（）()：:]/g,'')}
 function findCol(headers,keys){return headers.findIndex(h=>keys.some(k=>norm(h).includes(norm(k))))}
 function parseDate(raw){if(!raw)return null;let s=String(raw).trim();let m=s.match(/^(\d{4})[./年-](\d{1,2})[./月-](\d{1,2})日?$/);if(m)return new Date(+m[1],+m[2]-1,+m[3]);m=s.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);if(m){let a=+m[1],b=+m[2],y=+m[3];return a>12?new Date(y,b-1,a):new Date(y,a-1,b)}let d=new Date(s);return isNaN(d)?null:new Date(d.getFullYear(),d.getMonth(),d.getDate())}
-function parseEvents(csv){let rows=parseCSV(csv);if(rows.length<2)return[];let h=rows[0].map(x=>x.trim());let di=findCol(h,['日期','date','活动日','开始日期']),ti=findCol(h,['时间','time','时段']),ni=findCol(h,['活动名称','活动内容','活动','事项','标题','event','title','program']),vi=findCol(h,['地点','场地','venue','location']),ci=findCol(h,['类别','分类','组别','category','type']),di2=findCol(h,['结束日期','end date']);if(di<0||ni<0){$('status').textContent='已连接表格，但无法自动识别日期或活动名称栏位。请检查表格首行标题，或将日期与活动名称栏位名称发给网站维护者。';return[]}return rows.slice(1).map(r=>{let date=parseDate(r[di]);if(!date)return null;let obj={date,title:(r[ni]||'').trim(),time:ti>=0?(r[ti]||'').trim():'',venue:vi>=0?(r[vi]||'').trim():'',category:ci>=0?(r[ci]||'').trim():'',description:r.map((x,i)=>h[i]+': '+x).filter((x,i)=>r[i]&&i!==di&&i!==ni&&i!==ti&&i!==vi&&i!==ci).join('\n')};if(di2>=0)obj.endDate=parseDate(r[di2]);return obj.title?obj:null}).filter(Boolean).sort((a,b)=>a.date-b.date)}
+function parseEvents(csv){
+ let rows=parseCSV(csv);if(rows.length<2)return[];
+ // The user's sheet has a title/instructions above the actual column headings.
+ // Search the first 20 non-empty CSV rows for the most likely header row.
+ let headerIndex=-1,h=[],di=-1,ni=-1,ti=-1,vi=-1,ci=-1,di2=-1;
+ for(let ri=0;ri<Math.min(rows.length,20);ri++){
+  const candidate=rows[ri].map(x=>x.trim());
+  const cdi=findCol(candidate,['开始日期','活动日期','日期','date','活动日','日期（开始）']);
+  const cni=findCol(candidate,['活动名称','活动内容','活动项目','活动事项','事项名称','活动','标题','event','title','program','项目名称']);
+  // Avoid matching explanatory/title rows: a valid header should contain both a date and an activity/title column.
+  if(cdi>=0&&cni>=0){headerIndex=ri;h=candidate;di=cdi;ni=cni;break;}
+ }
+ if(headerIndex<0){
+  // Fallback for sheets whose date column is simply labelled "开始" or "日期/时间".
+  for(let ri=0;ri<Math.min(rows.length,20);ri++){
+   const candidate=rows[ri].map(x=>x.trim());
+   const cdi=findCol(candidate,['日期','date','开始日期','开始日']);
+   const cni=findCol(candidate,['活动','名称','事项','标题','event','title','program']);
+   if(cdi>=0&&cni>=0){headerIndex=ri;h=candidate;di=cdi;ni=cni;break;}
+  }
+ }
+ if(headerIndex<0){$('status').textContent='已读取公开表格，但找不到活动表头。请确认表格中有“活动名称”和“开始日期/日期”栏位。';return[];}
+ ti=findCol(h,['开始时间','活动时间','时间','时段','time']);
+ vi=findCol(h,['地点','场地','活动地点','venue','location']);
+ ci=findCol(h,['类别','分类','组别','活动类别','category','type']);
+ di2=findCol(h,['结束日期','活动结束日期','end date']);
+ const parsed=[];
+ for(const r of rows.slice(headerIndex+1)){
+  let date=parseDate(r[di]);
+  // Ignore blank rows and repeated headers; keep rows only when both date and activity title exist.
+  if(!date)continue;
+  const title=(r[ni]||'').trim();if(!title)continue;
+  let time=ti>=0?(r[ti]||'').trim():'';
+  // If the sheet has separate start/end time columns, show both.
+  const endTime=findCol(h,['结束时间','完结时间','end time']);
+  if(endTime>=0&&(r[endTime]||'').trim())time=time?time+' – '+r[endTime].trim():r[endTime].trim();
+  const obj={date,title,time,venue:vi>=0?(r[vi]||'').trim():'',category:ci>=0?(r[ci]||'').trim():'',description:r.map((x,i)=>h[i]+': '+x).filter((x,i)=>r[i]&&i!==di&&i!==ni&&i!==ti&&i!==vi&&i!==ci).join('\n')};
+  if(di2>=0)obj.endDate=parseDate(r[di2]);parsed.push(obj);
+ }
+ return parsed.sort((a,b)=>a.date-b.date);
+}
 function matches(e){let s=$('search').value.trim().toLowerCase(),c=$('category').value;return(!s||(e.title+' '+e.venue+' '+e.category+' '+e.description).toLowerCase().includes(s))&&(!c||e.category===c)}
 function fmt(d){return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`}function same(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}
 function showEvent(e){$('modalTitle').textContent=e.title;$('modalBody').innerHTML='';[['日期',fmt(e.date)],['时间',e.time],['地点',e.venue],['类别',e.category],['详情',e.description]].forEach(([k,v])=>{if(v){let p=document.createElement('p');let b=document.createElement('strong');b.textContent=k+'：';p.append(b,document.createTextNode(v));$('modalBody').append(p)}});$('modal').classList.add('show')}
