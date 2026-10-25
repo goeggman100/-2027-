@@ -7,6 +7,67 @@
 <title>2027年 美里佛教居士林 活动日历</title>
 
 <style>
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 28px;
+  background: #fffdf7;
+  border-bottom: 1px solid #e8dcc3;
+}
+
+.site-logo {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.site-heading h1 {
+  margin: 0 0 5px;
+  color: #6d512c;
+  font-size: 28px;
+}
+
+.site-heading p {
+  margin: 0 0 6px;
+  color: #82745e;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.site-heading span {
+  color: #a27b3f;
+  font-size: 15px;
+}
+
+.site-banner img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .site-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .site-heading h1 {
+    font-size: 21px;
+  }
+
+  .site-banner img {
+    max-height: 160px;
+  }
+}
+  
 :root {
   --green: #376b5b;
   --light-green: #e7f1ec;
@@ -212,11 +273,26 @@ button:disabled { opacity: .6; cursor: wait; }
 </style>
 </head>
 
-<body>
-<header>
-  <h1>2027 年活动日历</h1>
-  <p>活动安排 · 日期查询 · 即时更新</p>
+<header class="site-header">
+  <img
+    src="logo.png"
+    alt="美里佛教居士林 Logo"
+    class="site-logo"
+  />
+
+  <div class="site-heading">
+    <h1>美里佛教居士林</h1>
+    <p>MIRI BUDDHIST SOCIETY (1993)</p>
+    <span>2027 年度活动日历</span>
+  </div>
 </header>
+
+<div class="site-banner">
+  <img
+    src="banner.jpg"
+    alt="美里佛教居士林活动主题图"
+  />
+</div>
 
 <main>
   <div class="toolbar">
