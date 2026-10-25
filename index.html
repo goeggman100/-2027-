@@ -2,869 +2,1378 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2027年 美里佛教居士林 活动日历</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f5ed">
+  <meta name="description" content="美里佛教居士林 2027 年度活动日历">
+  <title>美里佛教居士林｜2027 年度活动日历</title>
 
-<style>
-.site-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 22px 28px;
-  background: #fffdf7;
-  border-bottom: 1px solid #e8dcc3;
-}
+  <style>
+    :root {
+      --gold: #a98646;
+      --gold-light: #d9c59a;
+      --green: #354e42;
+      --green-light: #e9eee7;
+      --cream: #f8f5ed;
+      --paper: #fffdf8;
+      --ink: #333b34;
+      --muted: #777b72;
+      --line: #e9e2d3;
+      --shadow: 0 8px 28px rgba(62, 55, 37, 0.07);
+    }
 
-.site-logo {
-  width: 82px;
-  height: 82px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.site-heading h1 {
-  margin: 0 0 5px;
-  color: #6d512c;
-  font-size: 28px;
-}
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family:
+        "Noto Sans SC",
+        "Microsoft YaHei",
+        "PingFang SC",
+        sans-serif;
+      line-height: 1.6;
+    }
 
-.site-heading p {
-  margin: 0 0 6px;
-  color: #82745e;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
+    button,
+    input {
+      font: inherit;
+    }
 
-.site-heading span {
-  color: #a27b3f;
-  font-size: 15px;
-}
+    button {
+      cursor: pointer;
+    }
 
-.site-banner img {
-  display: block;
-  width: 100%;
-  max-height: 260px;
-  object-fit: cover;
-}
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-@media (max-width: 600px) {
-  .site-header {
-    padding: 16px;
-    gap: 12px;
-  }
+    /* ===== Header & Logo ===== */
 
-  .site-logo {
-    width: 60px;
-    height: 60px;
-  }
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 24px 28px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
 
-  .site-heading h1 {
-    font-size: 21px;
-  }
+      /* 不裁切 Logo */
+      overflow: visible;
+    }
 
-  .site-banner img {
-    max-height: 160px;
-  }
-}
-  
-:root {
-  --green: #376b5b;
-  --light-green: #e7f1ec;
-  --ink: #273444;
-  --muted: #6b7280;
-  --line: #e5e7eb;
-  --bg: #f4f6f5;
-  --gold: #c58d45;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: system-ui, -apple-system, "Segoe UI",
-    "Microsoft YaHei", sans-serif;
-}
-header {
-  background: linear-gradient(135deg,#244f45,#477a68);
-  color: white;
-  padding: 28px 18px 24px;
-  text-align: center;
-}
-header h1 {
-  margin: 0;
-  font-size: clamp(25px,4vw,36px);
-  letter-spacing: .06em;
-}
-header p { margin: 8px 0 0; color: #e4eee9; }
+    .logo-frame {
+      flex: 0 0 104px;
+      width: 104px;
+      height: 104px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
 
-main {
-  max-width: 1200px;
-  margin: 22px auto;
-  padding: 0 16px 40px;
-}
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  margin-bottom: 16px;
-}
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-button,input {
-  font: inherit;
-  border: 1px solid #d1d5db;
-  border-radius: 9px;
-  padding: 9px 12px;
-  background: white;
-  color: var(--ink);
-}
-button { cursor: pointer; }
-button.primary {
-  background: var(--green);
-  color: white;
-  border-color: var(--green);
-}
-button:disabled { opacity: .6; cursor: wait; }
-#monthLabel {
-  font-size: 20px;
-  font-weight: 700;
-  min-width: 135px;
-  text-align: center;
-}
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0,1.7fr) minmax(280px,1fr);
-  gap: 16px;
-}
-.panel {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-  min-width: 0;
-}
-.panel-head {
-  padding: 15px 17px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-}
-.panel-head h2 { font-size: 17px; margin: 0; }
-.status { font-size: 12px; color: var(--muted); }
+    .site-logo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
 
-.calendar { padding: 12px; }
-.weekdays,.days {
-  display: grid;
-  grid-template-columns: repeat(7,minmax(0,1fr));
-  gap: 5px;
-}
-.weekdays div {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  padding: 8px 0;
-}
-.day {
-  border: 1px solid #edf0ef;
-  min-height: 100px;
-  border-radius: 9px;
-  padding: 6px;
-  background: white;
-  cursor: pointer;
-  overflow: hidden;
-  min-width: 0;
-}
-.day:hover { border-color: #8bb4a4; background: #fbfdfc; }
-.day.outside { background: #f8f9f8; color: #a6adb4; }
-.day.today { border: 2px solid var(--gold); }
-.day.selected { background: var(--light-green); border-color: var(--green); }
-.daynum { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
-.event-chip {
-  display: block;
-  background: #e8f1ed;
-  color: #285c4c;
-  border-left: 3px solid #548b76;
-  border-radius: 4px;
-  padding: 3px 4px;
-  margin: 3px 0;
-  font-size: 11px;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
-}
-.event-chip.more {
-  background: #f3f4f6;
-  color: #59616b;
-  border-left-color: #9ca3af;
-}
-.side-content { padding: 14px 16px; }
-.event-list { display: flex; flex-direction: column; gap: 10px; }
-.event {
-  padding: 11px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-}
-.event h3 { margin: 5px 0; font-size: 15px; }
-.event p {
-  margin: 4px 0;
-  color: #586270;
-  font-size: 13px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.event .date { font-size: 12px; font-weight: 700; color: var(--green); }
-.empty { padding: 25px 10px; text-align: center; color: var(--muted); }
-.error {
-  margin: 12px 0;
-  padding: 12px 14px;
-  background: #fff1f0;
-  color: #9f2d25;
-  border: 1px solid #ffd2ce;
-  border-radius: 10px;
-  display: none;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.footnote {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 14px;
-  line-height: 1.5;
-}
-.pill {
-  display: inline-block;
-  font-size: 10px;
-  border-radius: 20px;
-  padding: 2px 6px;
-  background: #f4eadb;
-  color: #86591c;
-  margin-left: 3px;
-}
-@media(max-width:850px) {
-  .layout { grid-template-columns: 1fr; }
-  .day { min-height: 80px; padding: 4px; }
-  .event-chip { font-size: 10px; }
-  .toolbar { align-items: flex-start; }
-  #monthLabel { min-width: 110px; }
-}
-@media(max-width:520px) {
-  main { padding: 0 8px 25px; margin-top: 12px; }
-  .calendar { padding: 5px; }
-  .weekdays,.days { gap: 2px; }
-  .day { min-height: 65px; border-radius: 5px; }
-  .daynum { font-size: 12px; }
-  .event-chip { font-size: 9px; padding: 2px; }
-  .toolbar { padding: 10px; }
-  .controls { gap: 5px; }
-  button,input { padding: 8px; font-size: 13px; }
-}
-</style>
+      /* 关键：完整显示整张 Logo */
+      object-fit: contain;
+      object-position: center;
+
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    .logo-placeholder {
+      display: none;
+      width: 100%;
+      height: 100%;
+      border: 1px dashed var(--gold-light);
+      border-radius: 12px;
+      color: var(--gold);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 13px;
+      padding: 8px;
+    }
+
+    .site-heading {
+      min-width: 0;
+    }
+
+    .site-heading h1 {
+      margin: 0;
+      font-size: clamp(23px, 3vw, 34px);
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--green);
+      line-height: 1.35;
+    }
+
+    .english-name {
+      margin: 5px 0 8px;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .site-subtitle {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--green-light);
+      color: var(--green);
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* ===== Banner ===== */
+
+    .welcome-banner {
+      position: relative;
+      margin-top: 20px;
+      padding: 28px 30px;
+      overflow: hidden;
+      border-radius: 18px;
+      color: #fffdf5;
+      background:
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(217, 197, 154, 0.3),
+          transparent 35%
+        ),
+        linear-gradient(120deg, #354e42, #667b62);
+    }
+
+    .welcome-banner::after {
+      content: "☸";
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 100px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .welcome-banner h2 {
+      margin: 0 0 8px;
+      font-size: clamp(21px, 3vw, 29px);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .welcome-banner p {
+      margin: 0;
+      color: #eee7d6;
+      font-size: 14px;
+    }
+
+    /* ===== Toolbar ===== */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .search-box {
+      flex: 1 1 240px;
+      min-width: 0;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(169, 134, 70, 0.1);
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 9px 15px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+      color: var(--green);
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--green-light);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .btn-primary:hover {
+      background: #263b31;
+    }
+
+    /* ===== Calendar ===== */
+
+    .calendar-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .calendar-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-heading h2 {
+      margin: 0;
+      color: var(--green);
+      font-size: 25px;
+    }
+
+    .month-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .month-controls button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+      color: var(--green);
+      font-size: 20px;
+    }
+
+    .month-controls button:hover {
+      background: var(--green-light);
+    }
+
+    .weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .weekdays {
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+
+    .weekday {
+      padding: 12px 2px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .weekday:first-child {
+      color: #b36c60;
+    }
+
+    .weekday:last-child {
+      color: #6885a4;
+    }
+
+    .day-cell {
+      min-width: 0;
+      min-height: 118px;
+      padding: 8px;
+      border-right: 1px solid #f0ebdf;
+      border-bottom: 1px solid #f0ebdf;
+      background: transparent;
+    }
+
+    .day-cell:nth-child(7n) {
+      border-right: 0;
+    }
+
+    .day-cell.other-month {
+      background: #faf8f2;
+      color: #b8b5aa;
+    }
+
+    .day-cell.today {
+      background: #f5f0df;
+    }
+
+    .day-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 29px;
+      height: 29px;
+      margin-bottom: 6px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .today .day-number {
+      color: white;
+      background: var(--green);
+    }
+
+    .event {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 5px 6px;
+      border: 0;
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      background: #f3eee1;
+      color: #5e4b2d;
+      text-align: left;
+      font-size: 11px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .event:hover {
+      background: #e8ddc4;
+    }
+
+    .event-time {
+      display: block;
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .more-events {
+      display: block;
+      margin-top: 4px;
+      color: var(--green);
+      font-size: 11px;
+    }
+
+    /* ===== Search results & details ===== */
+
+    .section-title {
+      margin: 26px 0 12px;
+      color: var(--green);
+      font-size: 19px;
+    }
+
+    .results-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+    }
+
+    .result-date {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .result-card h3 {
+      margin: 5px 0;
+      color: var(--green);
+      font-size: 17px;
+    }
+
+    .result-card p {
+      margin: 5px 0;
+      font-size: 13px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .empty-state {
+      padding: 30px 12px;
+      text-align: center;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+
+    .status {
+      margin: 12px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status.error {
+      color: #a33d32;
+    }
+
+    .footer {
+      padding: 28px 8px 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer strong {
+      color: var(--green);
+    }
+
+    /* ===== Mobile ===== */
+
+    @media (max-width: 700px) {
+      .page {
+        padding: 12px;
+      }
+
+      .site-header {
+        gap: 14px;
+        padding: 17px;
+        border-radius: 15px;
+      }
+
+      .logo-frame {
+        flex-basis: 76px;
+        width: 76px;
+        height: 76px;
+      }
+
+      .site-heading h1 {
+        font-size: 21px;
+        letter-spacing: 0;
+      }
+
+      .english-name {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
+      .site-subtitle {
+        font-size: 11px;
+      }
+
+      .welcome-banner {
+        padding: 23px 19px;
+      }
+
+      .welcome-banner::after {
+        right: 8px;
+        font-size: 70px;
+      }
+
+      .calendar-panel {
+        padding: 12px 7px;
+      }
+
+      .calendar-heading {
+        padding: 0 5px;
+      }
+
+      .calendar-heading h2 {
+        font-size: 20px;
+      }
+
+      .day-cell {
+        min-height: 78px;
+        padding: 3px;
+      }
+
+      .day-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+      }
+
+      .event {
+        padding: 4px 3px;
+        font-size: 10px;
+        border-left-width: 2px;
+      }
+
+      .event-time {
+        display: none;
+      }
+
+      .weekday {
+        font-size: 11px;
+        padding: 9px 0;
+      }
+
+      .results-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .logo-frame {
+        flex-basis: 62px;
+        width: 62px;
+        height: 62px;
+      }
+
+      .site-header {
+        gap: 10px;
+        padding: 13px;
+      }
+
+      .site-heading h1 {
+        font-size: 18px;
+      }
+
+      .day-cell {
+        min-height: 66px;
+      }
+
+      .event {
+        font-size: 9px;
+      }
+    }
+  </style>
 </head>
 
-<header class="site-header">
-  <img
-    src="logo.png"
-    alt="美里佛教居士林 Logo"
-    class="site-logo"
-  />
+<body>
+  <main class="page">
 
-  <div class="site-heading">
-    <h1>美里佛教居士林</h1>
-    <p>MIRI BUDDHIST SOCIETY (1993)</p>
-    <span>2027 年度活动日历</span>
-  </div>
-</header>
-
-<div class="site-banner">
-  <img
-    src="banner.jpg"
-    alt="美里佛教居士林活动主题图"
-  />
-</div>
-
-<main>
-  <div class="toolbar">
-    <div class="controls">
-      <button id="prevBtn">‹ 上个月</button>
-      <button id="todayBtn">今天</button>
-      <button id="nextBtn">下个月 ›</button>
-      <span id="monthLabel">2027 年 1 月</span>
-    </div>
-    <div class="controls">
-      <input id="searchInput" type="search"
-        placeholder="搜索活动、地点、负责人…" aria-label="搜索活动">
-      <button id="refreshBtn" class="primary">刷新数据</button>
-    </div>
-  </div>
-
-  <div id="errorBox" class="error" role="alert"></div>
-
-  <div class="layout">
-    <section class="panel">
-      <div class="panel-head">
-        <h2>月历</h2>
-        <span id="loadStatus" class="status">正在载入活动…</span>
-      </div>
-      <div class="calendar">
-        <div class="weekdays">
-          <div>日</div><div>一</div><div>二</div><div>三</div>
-          <div>四</div><div>五</div><div>六</div>
+    <header class="site-header">
+      <div class="logo-frame">
+        <img
+          src="./logo.png"
+          alt="美里佛教居士林 Logo"
+          class="site-logo"
+          id="siteLogo"
+        >
+        <div class="logo-placeholder" id="logoPlaceholder">
+          请上传<br>logo.png
         </div>
-        <div id="days" class="days"></div>
+      </div>
+
+      <div class="site-heading">
+        <h1>美里佛教居士林</h1>
+        <p class="english-name">MIRI BUDDHIST SOCIETY · EST. 1993</p>
+        <span class="site-subtitle">2027 年度活动日历</span>
+      </div>
+    </header>
+
+    <section class="welcome-banner">
+      <h2>法喜相聚 · 感恩同行</h2>
+      <p>以佛法滋养身心，以慈悲连接彼此。</p>
+    </section>
+
+    <section class="toolbar" aria-label="日历操作">
+      <div class="search-box">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="搜索活动、地点、负责人……"
+          aria-label="搜索活动"
+        >
+      </div>
+
+      <button class="btn" id="todayBtn" type="button">今天</button>
+      <button class="btn" id="refreshBtn" type="button">↻ 刷新资料</button>
+      <button class="btn btn-primary" id="listBtn" type="button">
+        查看活动
+      </button>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite">
+      正在读取 Google Sheets 活动资料……
+    </p>
+
+    <section class="calendar-panel" id="calendarPanel">
+      <div class="calendar-heading">
+        <h2 id="monthTitle">2027 年 1 月</h2>
+
+        <div class="month-controls">
+          <button type="button" id="prevMonth" aria-label="上一个月">‹</button>
+          <button type="button" id="nextMonth" aria-label="下一个月">›</button>
+        </div>
+      </div>
+
+      <div class="weekdays" aria-hidden="true">
+        <div class="weekday">日</div>
+        <div class="weekday">一</div>
+        <div class="weekday">二</div>
+        <div class="weekday">三</div>
+        <div class="weekday">四</div>
+        <div class="weekday">五</div>
+        <div class="weekday">六</div>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </section>
+
+    <section id="resultsSection">
+      <h2 class="section-title" id="resultsTitle">活动列表</h2>
+      <div class="results-list" id="resultsList">
+        <div class="empty-state">正在载入活动……</div>
       </div>
     </section>
 
-    <section class="panel">
-      <div class="panel-head">
-        <h2 id="listTitle">本月活动</h2>
-        <span id="resultCount" class="status"></span>
-      </div>
-      <div class="side-content">
-        <div id="eventList" class="event-list">
-          <div class="empty">正在载入…</div>
-        </div>
-        <div class="footnote">
-          活动资料来自 Google Sheets。点击「刷新数据」读取最新资料。
-          网站每 5 分钟自动检查更新。
-        </div>
-      </div>
-    </section>
-  </div>
-</main>
+    <footer class="footer">
+      <strong>美里佛教居士林</strong>
+      <p>愿正法久住，愿众生离苦得乐。</p>
+      <p>活动资料以居士林最新公布为准。</p>
+    </footer>
 
-<script>
-"use strict";
+  </main>
 
-/* Google Sheets CSV links */
-const ACTIVITY_CSV_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vTcmNKJ322HzGxtlRqsQNQ-1DLRq-LXcivKuWEt7DWfXnf_EpofCpUkzbL9FUvK_WSxH0RaHbsCs5mY/pub?gid=1830432104&single=true&output=csv";
+  <script>
+    "use strict";
 
-const DATE_INFO_CSV_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vTcmNKJ322HzGxtlRqsQNQ-1DLRq-LXcivKuWEt7DWfXnf_EpofCpUkzbL9FUvK_WSxH0RaHbsCs5mY/pub?gid=688612611&single=true&output=csv";
+    /* ==========================================
+       Google Sheets CSV 来源
+       ========================================== */
 
-let activities = [];
-let dateInfo = [];
-let viewDate = new Date(2027, 0, 1);
-let selectedDate = "";
-let searchTerm = "";
+    const ACTIVITY_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcmNKJ322HzGxtlRqsQNQ-1DLRq-LXcivKuWEt7DWfXnf_EpofCpUkzbL9FUvK_WSxH0RaHbsCs5mY/pub?gid=1830432104&single=true&output=csv";
 
-const $ = id => document.getElementById(id);
-const clean = v => String(v ?? "").replace(/^\uFEFF/, "").trim();
-const norm = v => clean(v).toLowerCase()
-  .replace(/[\s_\-()（）:：/]+/g, "");
+    const DATE_INFO_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcmNKJ322HzGxtlRqsQNQ-1DLRq-LXcivKuWEt7DWfXnf_EpofCpUkzbL9FUvK_WSxH0RaHbsCs5mY/pub?gid=688612611&single=true&output=csv";
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#39;"
-  })[c]);
-}
+    const AUTO_REFRESH_MS = 5 * 60 * 1000;
+    const MAX_EVENTS_PER_DAY = 3;
 
-/* Robust CSV parser: supports quoted commas, line breaks and escaped quotes */
-function parseCSV(text) {
-  const rows = [];
-  let row = [], field = "", quoted = false;
-  text = String(text ?? "").replace(/^\uFEFF/, "");
+    let activities = [];
+    let dateInfo = new Map();
+    let viewDate = new Date(2027, 0, 1);
+    let searchTerm = "";
+    let showingSearchResults = false;
+    let lastUpdated = null;
 
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
+    const $ = id => document.getElementById(id);
 
-    if (quoted) {
-      if (c === '"' && text[i + 1] === '"') {
-        field += '"';
-        i++;
-      } else if (c === '"') {
-        quoted = false;
-      } else {
-        field += c;
-      }
-    } else {
-      if (c === '"' && field === "") {
-        quoted = true;
-      } else if (c === ",") {
-        row.push(field);
-        field = "";
-      } else if (c === "\n" || c === "\r") {
-        if (c === "\r" && text[i + 1] === "\n") i++;
-        row.push(field);
-        if (row.some(v => clean(v) !== "")) rows.push(row);
-        row = [];
-        field = "";
-      } else {
-        field += c;
-      }
-    }
-  }
+    /* ==========================================
+       Logo 错误处理
+       ========================================== */
 
-  row.push(field);
-  if (row.some(v => clean(v) !== "")) rows.push(row);
-  return rows;
-}
-
-function validDate(y, m, d) {
-  const date = new Date(y, m - 1, d);
-  return date.getFullYear() === y &&
-    date.getMonth() === m - 1 &&
-    date.getDate() === d ? date : null;
-}
-
-/* Handles common Google Sheets date formats */
-function parseDate(value) {
-  const s = clean(value);
-  if (!s) return null;
-  let m;
-
-  // yyyy-mm-dd or yyyy/mm/dd
-  m = s.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:$|T|\s)/);
-  if (m) return validDate(+m[1], +m[2], +m[3]);
-
-  // dd/mm/yyyy or dd-mm-yyyy
-  m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
-  if (m) return validDate(+m[3], +m[2], +m[1]);
-
-  const months = {
-    jan:0,january:0,feb:1,february:1,mar:2,march:2,
-    apr:3,april:3,may:4,jun:5,june:5,jul:6,july:6,
-    aug:7,august:7,sep:8,sept:8,september:8,
-    oct:9,october:9,nov:10,november:10,dec:11,december:11
-  };
-
-  // 13-Feb-27 or 13 Feb 2027
-  m = s.match(/^(\d{1,2})[\s\-\/]([A-Za-z]{3,9})[\s,\-\/]+(\d{2,4})$/);
-  if (m && months[m[2].toLowerCase()] !== undefined) {
-    let y = +m[3];
-    if (y < 100) y += y < 50 ? 2000 : 1900;
-    return validDate(y, months[m[2].toLowerCase()] + 1, +m[1]);
-  }
-
-  // Feb 13, 2027
-  m = s.match(/^([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})$/);
-  if (m && months[m[1].toLowerCase()] !== undefined) {
-    return validDate(+m[3], months[m[1].toLowerCase()] + 1, +m[2]);
-  }
-
-  // Google Sheets serial date
-  if (/^\d{5}(?:\.0+)?$/.test(s)) {
-    const d = new Date(Date.UTC(1899,11,30) +
-      Math.floor(Number(s)) * 86400000);
-    return validDate(d.getUTCFullYear(), d.getUTCMonth()+1, d.getUTCDate());
-  }
-
-  const parsed = new Date(s);
-  if (!isNaN(parsed)) {
-    return validDate(parsed.getFullYear(),
-      parsed.getMonth()+1, parsed.getDate());
-  }
-  return null;
-}
-
-function dateKey(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-}
-function fromKey(key) {
-  const m = String(key).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  return m ? new Date(+m[1], +m[2]-1, +m[3]) : null;
-}
-function addDays(d, n) {
-  const x = new Date(d);
-  x.setDate(x.getDate()+n);
-  return x;
-}
-
-/* Locate a likely header row, including sheets with a title above the table */
-function rowsToObjects(rows) {
-  if (!rows.length) return [];
-
-  let headerRow = 0, bestScore = -1;
-
-  for (let i = 0; i < Math.min(rows.length, 20); i++) {
-    const cells = rows[i].map(norm);
-    const score = cells.filter(c =>
-      /activity|event|活动|title|名称|startdate|开始日期|date|日期/.test(c)
-    ).length;
-
-    if (score > bestScore) {
-      bestScore = score;
-      headerRow = i;
-    }
-  }
-
-  const headers = rows[headerRow].map(clean);
-
-  return rows.slice(headerRow + 1)
-    .filter(r => r.some(v => clean(v) !== ""))
-    .map(r => {
-      const obj = {};
-      headers.forEach((h, i) => {
-        if (h) obj[h] = clean(r[i]);
-      });
-      return obj;
+    $("siteLogo").addEventListener("error", () => {
+      $("siteLogo").style.display = "none";
+      $("logoPlaceholder").style.display = "flex";
     });
-}
 
-function getValue(obj, patterns) {
-  const entry = Object.entries(obj).find(([key, value]) =>
-    patterns.some(p => p.test(norm(key))) && clean(value) !== ""
-  );
-  return entry ? clean(entry[1]) : "";
-}
+    $("siteLogo").addEventListener("load", () => {
+      $("siteLogo").style.display = "block";
+      $("logoPlaceholder").style.display = "none";
+    });
 
-function detectActivities(rows) {
-  const objects = rowsToObjects(rows);
+    /* ==========================================
+       CSV 解析器：处理逗号、引号、换行
+       ========================================== */
 
-  return objects.map((obj, i) => {
-    const title = getValue(obj, [
-      /^(activity|event|活动名称|活动|title|name|eventname|activityname)$/,
-      /activityname/, /eventname/, /活动名称/
-    ]);
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = "";
+      let inQuotes = false;
 
-    const startRaw = getValue(obj, [
-      /^(startdate|start|date|日期|开始日期|活动日期|eventdate)$/,
-      /startdate/, /开始日期/, /活动日期/, /^date$/
-    ]);
+      text = text.replace(/^\uFEFF/, "");
 
-    const endRaw = getValue(obj, [
-      /^(enddate|end|结束日期)$/, /enddate/, /结束日期/
-    ]);
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
 
-    const enabled = getValue(obj, [
-      /^(enabled|active|status|启用|状态|是否启用)$/,
-      /enabled/, /active/
-    ]);
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          row.push(field.trim());
+          field = "";
+        } else if (
+          (char === "\n" || char === "\r") &&
+          !inQuotes
+        ) {
+          if (char === "\r" && next === "\n") i++;
 
-    const category = getValue(obj, [
-      /^(category|type|类别|类型|分类)$/, /category/, /类别/, /类型/
-    ]);
-    const location = getValue(obj, [
-      /^(location|venue|地点|场地)$/, /location/, /venue/, /地点/, /场地/
-    ]);
-    const owner = getValue(obj, [
-      /^(owner|personincharge|负责人|负责人员|联系人)$/,
-      /owner/, /负责人/, /联系人/
-    ]);
-    const description = getValue(obj, [
-      /^(description|details|备注|说明|内容)$/,
-      /description/, /details/, /备注/, /说明/
-    ]);
-    const recurrence = getValue(obj, [
-      /^(recurrence|repeat|重复|重复规则)$/,
-      /recurrence/, /repeat/, /重复/
-    ]);
+          row.push(field.trim());
 
-    const start = parseDate(startRaw);
-    const end = parseDate(endRaw) || start;
+          if (row.some(value => value !== "")) {
+            rows.push(row);
+          }
 
-    if (!title || !start) return null;
-    if (/^(false|no|n|0|inactive|disabled|否|停用)$/i.test(enabled)) {
+          row = [];
+          field = "";
+        } else {
+          field += char;
+        }
+      }
+
+      row.push(field.trim());
+
+      if (row.some(value => value !== "")) {
+        rows.push(row);
+      }
+
+      return rows;
+    }
+
+    function normalizeHeader(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replace(/[\s_\-（）()【】\[\]：:]/g, "");
+    }
+
+    function findColumn(headers, candidates) {
+      const normalized = headers.map(normalizeHeader);
+
+      for (const candidate of candidates) {
+        const index = normalized.indexOf(normalizeHeader(candidate));
+        if (index !== -1) return index;
+      }
+
+      return -1;
+    }
+
+    function detectHeaderRow(rows) {
+      const candidates = [
+        "日期", "date", "活动", "活动名称",
+        "event", "title", "事项", "内容"
+      ];
+
+      const scanLimit = Math.min(rows.length, 10);
+
+      for (let i = 0; i < scanLimit; i++) {
+        const values = rows[i].map(normalizeHeader);
+        const matches = candidates.filter(candidate =>
+          values.includes(normalizeHeader(candidate))
+        );
+
+        if (matches.length >= 1) {
+          return i;
+        }
+      }
+
+      return 0;
+    }
+
+    /* ==========================================
+       日期解析：支持常见日期格式
+       ========================================== */
+
+    function makeDate(year, month, day) {
+      if (
+        !Number.isInteger(year) ||
+        !Number.isInteger(month) ||
+        !Number.isInteger(day)
+      ) return null;
+
+      const result = new Date(year, month - 1, day);
+
+      if (
+        result.getFullYear() !== year ||
+        result.getMonth() !== month - 1 ||
+        result.getDate() !== day
+      ) return null;
+
+      return result;
+    }
+
+    function parseDate(value) {
+      if (value === null || value === undefined) return null;
+
+      const raw = String(value).trim();
+      if (!raw) return null;
+
+      // Excel / Google Sheets serial date
+      if (/^\d{5}(\.\d+)?$/.test(raw)) {
+        const serial = Number(raw);
+
+        if (serial > 20000 && serial < 80000) {
+          const date = new Date(
+            Date.UTC(1899, 11, 30) +
+            Math.floor(serial) * 86400000
+          );
+
+          return makeDate(
+            date.getUTCFullYear(),
+            date.getUTCMonth() + 1,
+            date.getUTCDate()
+          );
+        }
+      }
+
+      // YYYY-MM-DD, YYYY/MM/DD, YYYY.MM.DD
+      let match = raw.match(
+        /^(\d{4})[-/.年]\s*(\d{1,2})[-/.月]\s*(\d{1,2})日?$/
+      );
+
+      if (match) {
+        return makeDate(+match[1], +match[2], +match[3]);
+      }
+
+      // DD/MM/YYYY or MM/DD/YYYY
+      match = raw.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+
+      if (match) {
+        const a = +match[1];
+        const b = +match[2];
+        const year = +match[3];
+
+        // Prefer DD/MM/YYYY for Malaysian dates.
+        if (a > 12) return makeDate(year, b, a);
+        if (b > 12) return makeDate(year, a, b);
+
+        return makeDate(year, b, a);
+      }
+
+      // D Month YYYY, e.g. 5 Jan 2027
+      const monthNames = {
+        jan: 1, january: 1,
+        feb: 2, february: 2,
+        mar: 3, march: 3,
+        apr: 4, april: 4,
+        may: 5,
+        jun: 6, june: 6,
+        jul: 7, july: 7,
+        aug: 8, august: 8,
+        sep: 9, sept: 9, september: 9,
+        oct: 10, october: 10,
+        nov: 11, november: 11,
+        dec: 12, december: 12
+      };
+
+      match = raw.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/);
+
+      if (match && monthNames[match[2].toLowerCase()]) {
+        return makeDate(
+          +match[3],
+          monthNames[match[2].toLowerCase()],
+          +match[1]
+        );
+      }
+
       return null;
     }
 
-    return {
-      id: "a" + i, title, start, end, category,
-      location, owner, description, recurrence
-    };
-  }).filter(Boolean);
-}
+    function dateKey(date) {
+      return [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, "0"),
+        String(date.getDate()).padStart(2, "0")
+      ].join("-");
+    }
 
-/* Expand multi-day and recurring activities */
-function expandActivities(items) {
-  const expanded = [];
+    function formatDate(date) {
+      return new Intl.DateTimeFormat("zh-MY", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "short"
+      }).format(date);
+    }
 
-  for (const a of items) {
-    const start = a.start;
-    const end = a.end || start;
-    const rule = (a.recurrence || "").toLowerCase();
+    function formatTime(value) {
+      return String(value || "").trim();
+    }
 
-    if (!rule || /^(none|no|never|无|不重复|一次|one.?time)$/i.test(rule)) {
-      for (let d = new Date(start), count = 0;
-        d <= end && count < 370;
-        d = addDays(d, 1), count++) {
-        expanded.push({...a, date:dateKey(d)});
+    /* ==========================================
+       识别活动表格的栏位
+       ========================================== */
+
+    function rowsToObjects(rows) {
+      if (!rows.length) return [];
+
+      const headerIndex = detectHeaderRow(rows);
+      const headers = rows[headerIndex];
+
+      const dateCol = findColumn(headers, [
+        "日期", "活动日期", "举办日期",
+        "date", "eventdate", "activitydate"
+      ]);
+
+      const titleCol = findColumn(headers, [
+        "活动名称", "活动", "事项", "内容",
+        "event", "eventname", "title",
+        "activity", "activityname"
+      ]);
+
+      const timeCol = findColumn(headers, [
+        "时间", "活动时间", "time", "eventtime"
+      ]);
+
+      const locationCol = findColumn(headers, [
+        "地点", "场地", "活动地点", "location", "venue"
+      ]);
+
+      const personCol = findColumn(headers, [
+        "负责人", "联络人", "联系人", "负责单位",
+        "personincharge", "contact", "coordinator"
+      ]);
+
+      const descriptionCol = findColumn(headers, [
+        "备注", "说明", "详情", "描述",
+        "remark", "remarks", "description", "details"
+      ]);
+
+      if (dateCol === -1) {
+        throw new Error(
+          "活动表格找不到日期栏位。请检查第一行是否有「日期」或 Date。"
+        );
       }
-      continue;
+
+      const result = [];
+
+      for (let i = headerIndex + 1; i < rows.length; i++) {
+        const row = rows[i];
+        const dateText = row[dateCol] || "";
+        const title = titleCol >= 0 ? row[titleCol] : "";
+
+        if (!dateText.trim() || !title.trim()) continue;
+
+        const date = parseDate(dateText);
+
+        if (!date) continue;
+
+        const activity = {
+          date,
+          title: title.trim(),
+          time: timeCol >= 0 ? formatTime(row[timeCol]) : "",
+          location: locationCol >= 0 ? (row[locationCol] || "").trim() : "",
+          person: personCol >= 0 ? (row[personCol] || "").trim() : "",
+          description:
+            descriptionCol >= 0 ? (row[descriptionCol] || "").trim() : ""
+        };
+
+        result.push(activity);
+      }
+
+      return result;
     }
 
-    const mode =
-      /daily|每天|每日|日重复/.test(rule) ? "daily" :
-      /weekly|每周|星期|周重复/.test(rule) ? "weekly" :
-      /monthly|每月|月重复/.test(rule) ? "monthly" : "";
+    /* ==========================================
+       可选日期资料表
+       将日期相关资料与日历日期对应
+       ========================================== */
 
-    if (!mode) {
-      expanded.push({...a, date:dateKey(start)});
-      continue;
+    function parseDateInfo(rows) {
+      const result = new Map();
+
+      if (!rows.length) return result;
+
+      const headerIndex = detectHeaderRow(rows);
+      const headers = rows[headerIndex];
+
+      const dateCol = findColumn(headers, [
+        "日期", "date", "活动日期"
+      ]);
+
+      const titleCol = findColumn(headers, [
+        "节日", "日期名称", "主题", "名称",
+        "event", "title", "holiday", "occasion"
+      ]);
+
+      const noteCol = findColumn(headers, [
+        "备注", "说明", "note", "notes", "description"
+      ]);
+
+      if (dateCol === -1) return result;
+
+      for (let i = headerIndex + 1; i < rows.length; i++) {
+        const row = rows[i];
+        const date = parseDate(row[dateCol]);
+
+        if (!date) continue;
+
+        const key = dateKey(date);
+        const parts = [];
+
+        if (titleCol >= 0 && row[titleCol]) {
+          parts.push(row[titleCol].trim());
+        }
+
+        if (noteCol >= 0 && row[noteCol]) {
+          parts.push(row[noteCol].trim());
+        }
+
+        if (parts.length) {
+          const existing = result.get(key) || [];
+          result.set(key, [...existing, ...parts]);
+        }
+      }
+
+      return result;
     }
 
-    const lastDate = end > start ? end : new Date(2027, 11, 31);
-    const stop = new Date(Math.min(
-      lastDate.getTime(), new Date(2028,11,31).getTime()
-    ));
+    /* ==========================================
+       读取 Google Sheets
+       ========================================== */
 
-    for (let d = new Date(start), count = 0;
-      d <= stop && count < 500;
-      d = addDays(d, 1), count++) {
-      const match = mode === "daily" ||
-        (mode === "weekly" && d.getDay() === start.getDay()) ||
-        (mode === "monthly" && d.getDate() === start.getDate());
+    async function fetchCSV(url) {
+      const response = await fetch(
+        url + "&_=" + Date.now(),
+        { cache: "no-store" }
+      );
 
-      if (match) expanded.push({...a, date:dateKey(d)});
+      if (!response.ok) {
+        throw new Error("读取资料失败，HTTP " + response.status);
+      }
+
+      const text = await response.text();
+
+      if (
+        text.trim().startsWith("<!DOCTYPE html") ||
+        text.trim().startsWith("<html")
+      ) {
+        throw new Error("Google Sheets 没有返回 CSV，请检查发布权限。");
+      }
+
+      return parseCSV(text);
     }
-  }
 
-  return expanded;
-}
+    async function loadData() {
+      const status = $("status");
+      const refreshButton = $("refreshBtn");
 
-function parseDateInfo(rows) {
-  return rowsToObjects(rows).map(obj => {
-    const raw = getValue(obj, [
-      /^(date|日期|公历日期|gregoriandate)$/, /date/, /日期/
-    ]);
-    const date = parseDate(raw);
-    if (!date) return null;
+      refreshButton.disabled = true;
+      status.classList.remove("error");
+      status.textContent = "正在更新 Google Sheets 资料……";
 
-    return {
-      date: dateKey(date),
-      lunar: getValue(obj, [/^(lunar|lunarcalendar|农历|农历日期)$/, /lunar/, /农历/]),
-      holiday: getValue(obj, [/^(holiday|publicholiday|节日|公共假期|假期)$/, /holiday/, /节日/, /假期/]),
-      note: getValue(obj, [/^(note|备注|说明)$/, /note/, /备注/])
-    };
-  }).filter(Boolean);
-}
+      try {
+        const activityRows = await fetchCSV(ACTIVITY_CSV_URL);
+        const loadedActivities = rowsToObjects(activityRows);
 
-async function fetchCSV(url) {
-  const response = await fetch(url, {cache:"no-store"});
+        let loadedDateInfo = new Map();
+        let dateInfoMessage = "";
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} ${response.statusText}`);
-  }
+        try {
+          const dateRows = await fetchCSV(DATE_INFO_CSV_URL);
+          loadedDateInfo = parseDateInfo(dateRows);
+        } catch (error) {
+          dateInfoMessage = "；日期附加资料暂时无法读取";
+          console.warn("日期附加资料读取失败：", error);
+        }
 
-  const text = await response.text();
-  const trimmed = text.trim();
+        activities = loadedActivities.sort(
+          (a, b) =>
+            a.date - b.date ||
+            a.time.localeCompare(b.time, "zh")
+        );
 
-  if (!trimmed) throw new Error("CSV 内容为空。");
+        dateInfo = loadedDateInfo;
+        lastUpdated = new Date();
 
-  if (/^<!doctype html/i.test(trimmed) || /^<html/i.test(trimmed)) {
-    throw new Error("Google Sheets 返回 HTML，而不是 CSV。请检查发布设置。");
-  }
+        renderCalendar();
+        renderResults();
 
-  return parseCSV(text);
-}
+        status.textContent =
+          "资料已更新：" +
+          lastUpdated.toLocaleTimeString("zh-MY", {
+            hour: "2-digit",
+            minute: "2-digit"
+          }) +
+          "｜共 " + activities.length + " 项活动" +
+          dateInfoMessage;
 
-async function loadData() {
-  $("refreshBtn").disabled = true;
-  $("loadStatus").textContent = "正在载入…";
-  $("errorBox").style.display = "none";
+      } catch (error) {
+        console.error(error);
+        status.classList.add("error");
+        status.textContent =
+          "资料读取失败：" + error.message +
+          "。请确认 Google Sheets 已发布为 CSV，并检查网络连接。";
 
-  try {
-    const activityRows = await fetchCSV(ACTIVITY_CSV_URL);
-    const parsed = detectActivities(activityRows);
+        if (activities.length === 0) {
+          $("calendarGrid").innerHTML =
+            '<div class="empty-state" style="grid-column:1/-1">' +
+            "暂时无法载入活动资料，请稍后刷新。" +
+            "</div>";
+        }
+      } finally {
+        refreshButton.disabled = false;
+      }
+    }
 
-    if (!parsed.length) {
-      console.error("CSV 前几行：", activityRows.slice(0, 15));
-      throw new Error(
-        "已连接 CSV，但找不到可识别的活动日期或活动名称。请检查表头。"
+    /* ==========================================
+       活动筛选
+       ========================================== */
+
+    function matchesSearch(activity) {
+      if (!searchTerm) return true;
+
+      const combined = [
+        activity.title,
+        activity.time,
+        activity.location,
+        activity.person,
+        activity.description,
+        formatDate(activity.date)
+      ].join(" ").toLowerCase();
+
+      return combined.includes(searchTerm.toLowerCase());
+    }
+
+    function getFilteredActivities() {
+      return activities.filter(matchesSearch);
+    }
+
+    function activitiesOn(date) {
+      const key = dateKey(date);
+
+      return activities.filter(activity =>
+        dateKey(activity.date) === key &&
+        matchesSearch(activity)
       );
     }
 
-    activities = expandActivities(parsed);
+    /* ==========================================
+       安全输出文字，避免把表格内容当 HTML
+       ========================================== */
 
-    // Date information is optional. Failure here should not hide activities.
-    try {
-      dateInfo = parseDateInfo(await fetchCSV(DATE_INFO_CSV_URL));
-    } catch (dateError) {
-      console.warn("日期附加资料无法载入：", dateError);
-      dateInfo = [];
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
     }
 
-    $("loadStatus").textContent = `成功载入 ${parsed.length} 项活动`;
-    render();
+    /* ==========================================
+       绘制月历
+       ========================================== */
 
-  } catch (error) {
-    console.error("Calendar loading error:", error);
-    $("loadStatus").textContent = "载入失败";
-    $("errorBox").textContent =
-      "活动资料载入失败：\n" + error.message +
-      "\n\n如果出现 Failed to fetch，可能是浏览器跨站请求（CORS）问题。" +
-      "如果提示找不到活动，则需要根据实际 CSV 表头调整识别规则。";
-    $("errorBox").style.display = "block";
-    $("eventList").innerHTML =
-      '<div class="empty">暂时无法显示活动。请检查资料连接后再刷新。</div>';
-  } finally {
-    $("refreshBtn").disabled = false;
-  }
-}
+    function renderCalendar() {
+      const year = viewDate.getFullYear();
+      const month = viewDate.getMonth();
 
-function infoFor(key) {
-  return dateInfo.find(x => x.date === key);
-}
-function matchesSearch(a) {
-  return !searchTerm ||
-    [a.title,a.category,a.location,a.owner,a.description]
-      .join(" ").toLowerCase().includes(searchTerm);
-}
-function activityOn(key) {
-  return activities.filter(a => a.date === key && matchesSearch(a));
-}
+      $("monthTitle").textContent = year + " 年 " + (month + 1) + " 月";
 
-function renderCalendar() {
-  const year = viewDate.getFullYear();
-  const month = viewDate.getMonth();
+      const firstDay = new Date(year, month, 1);
+      const start = new Date(year, month, 1 - firstDay.getDay());
+      const today = dateKey(new Date());
 
-  $("monthLabel").textContent = `${year} 年 ${month+1} 月`;
+      const cells = [];
 
-  const first = new Date(year, month, 1);
-  const start = addDays(first, -first.getDay());
-  const todayKey = dateKey(new Date());
-  let html = "";
+      for (let i = 0; i < 42; i++) {
+        const date = new Date(start);
+        date.setDate(start.getDate() + i);
 
-  for (let i = 0; i < 42; i++) {
-    const d = addDays(start, i);
-    const key = dateKey(d);
-    const inMonth = d.getMonth() === month;
-    const evs = activityOn(key);
-    const info = infoFor(key);
+        const isCurrentMonth = date.getMonth() === month;
+        const isToday = dateKey(date) === today;
+        const events = activitiesOn(date);
+        const notes = dateInfo.get(dateKey(date)) || [];
 
-    const classes = "day" +
-      (!inMonth ? " outside" : "") +
-      (key === todayKey ? " today" : "") +
-      (key === selectedDate ? " selected" : "");
+        const classes = [
+          "day-cell",
+          isCurrentMonth ? "" : "other-month",
+          isToday ? "today" : ""
+        ].filter(Boolean).join(" ");
 
-    html += `
-      <div class="${classes}" data-date="${key}"
-        tabindex="0" role="button" aria-label="${key}">
-        <div class="daynum">${d.getDate()}
-          ${info && info.holiday ? '<span class="pill">假期</span>' : ""}
-        </div>
-        ${info && info.lunar
-          ? `<div style="font-size:10px;color:#8a929b;margin-bottom:3px">${escapeHTML(info.lunar)}</div>`
-          : ""}
-        ${evs.slice(0,3).map(e =>
-          `<span class="event-chip" title="${escapeHTML(e.title)}">${escapeHTML(e.title)}</span>`
-        ).join("")}
-        ${evs.length > 3
-          ? `<span class="event-chip more">另有 ${evs.length-3} 项</span>`
-          : ""}
-        ${info && info.holiday
-          ? `<div style="font-size:10px;color:#9a6a2d">${escapeHTML(info.holiday)}</div>`
-          : ""}
-      </div>`;
-  }
+        let eventHTML = "";
 
-  $("days").innerHTML = html;
+        events.slice(0, MAX_EVENTS_PER_DAY).forEach(event => {
+          eventHTML += `
+            <button class="event"
+              type="button"
+              data-date="${escapeHTML(dateKey(date))}"
+              title="${escapeHTML(event.title)}">
+              ${escapeHTML(event.title)}
+              ${event.time
+                ? `<span class="event-time">${escapeHTML(event.time)}</span>`
+                : ""}
+            </button>
+          `;
+        });
 
-  $("days").querySelectorAll(".day").forEach(el => {
-    const choose = () => {
-      selectedDate = el.dataset.date;
-      render();
-    };
-    el.addEventListener("click", choose);
-    el.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        choose();
+        if (events.length > MAX_EVENTS_PER_DAY) {
+          eventHTML += `
+            <span class="more-events">
+              另有 ${events.length - MAX_EVENTS_PER_DAY} 项
+            </span>
+          `;
+        }
+
+        if (notes.length) {
+          eventHTML += notes.map(note => `
+            <span class="more-events">
+              ${escapeHTML(note)}
+            </span>
+          `).join("");
+        }
+
+        cells.push(`
+          <div class="${classes}">
+            <div class="day-number">${date.getDate()}</div>
+            ${eventHTML}
+          </div>
+        `);
       }
+
+      $("calendarGrid").innerHTML = cells.join("");
+
+      $("calendarGrid").querySelectorAll(".event").forEach(button => {
+        button.addEventListener("click", () => {
+          const key = button.dataset.date;
+          const eventDate = parseDate(key);
+
+          if (eventDate) {
+            renderResults(eventDate);
+            $("resultsSection").scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        });
+      });
+    }
+
+    /* ==========================================
+       活动列表
+       ========================================== */
+
+    function renderResults(selectedDate = null) {
+      let list = getFilteredActivities();
+
+      if (selectedDate) {
+        const key = dateKey(selectedDate);
+        list = list.filter(item => dateKey(item.date) === key);
+        $("resultsTitle").textContent = formatDate(selectedDate) + " · 活动";
+      } else if (searchTerm) {
+        $("resultsTitle").textContent =
+          "搜索结果（" + list.length + " 项）";
+      } else {
+        const year = viewDate.getFullYear();
+        const month = viewDate.getMonth();
+
+        list = list.filter(item =>
+          item.date.getFullYear() === year &&
+          item.date.getMonth() === month
+        );
+
+        $("resultsTitle").textContent =
+          year + " 年 " + (month + 1) + " 月 · 活动列表";
+      }
+
+      if (!list.length) {
+        $("resultsList").innerHTML =
+          '<div class="empty-state">这个范围内没有找到活动。</div>';
+        return;
+      }
+
+      $("resultsList").innerHTML = list.map(activity => `
+        <article class="result-card">
+          <div class="result-date">
+            ${escapeHTML(formatDate(activity.date))}
+            ${activity.time
+              ? " · " + escapeHTML(activity.time)
+              : ""}
+          </div>
+          <h3>${escapeHTML(activity.title)}</h3>
+          ${activity.location
+            ? `<p>📍 ${escapeHTML(activity.location)}</p>`
+            : ""}
+          ${activity.person
+            ? `<p>👤 ${escapeHTML(activity.person)}</p>`
+            : ""}
+          ${activity.description
+            ? `<p>${escapeHTML(activity.description)}</p>`
+            : ""}
+        </article>
+      `).join("");
+    }
+
+    /* ==========================================
+       操作按钮
+       ========================================== */
+
+    $("prevMonth").addEventListener("click", () => {
+      viewDate = new Date(
+        viewDate.getFullYear(),
+        viewDate.getMonth() - 1,
+        1
+      );
+
+      showingSearchResults = false;
+      renderCalendar();
+      renderResults();
     });
-  });
-}
 
-function eventCard(a) {
-  const d = fromKey(a.date);
-  const dateText = d ? d.toLocaleDateString("zh-MY", {
-    year:"numeric", month:"short", day:"numeric", weekday:"short"
-  }) : a.date;
+    $("nextMonth").addEventListener("click", () => {
+      viewDate = new Date(
+        viewDate.getFullYear(),
+        viewDate.getMonth() + 1,
+        1
+      );
 
-  return `<article class="event">
-    <div class="date">${dateText}</div>
-    <h3>${escapeHTML(a.title)}</h3>
-    ${a.category ? `<p>类别：${escapeHTML(a.category)}</p>` : ""}
-    ${a.location ? `<p>地点：${escapeHTML(a.location)}</p>` : ""}
-    ${a.owner ? `<p>负责人：${escapeHTML(a.owner)}</p>` : ""}
-    ${a.description ? `<p>${escapeHTML(a.description)}</p>` : ""}
-  </article>`;
-}
-
-function renderList() {
-  const all = activities.filter(matchesSearch);
-  let list, title;
-
-  if (selectedDate) {
-    list = all.filter(a => a.date === selectedDate);
-    title = `${selectedDate} 的活动`;
-  } else {
-    list = all.filter(a => {
-      const d = fromKey(a.date);
-      return d &&
-        d.getFullYear() === viewDate.getFullYear() &&
-        d.getMonth() === viewDate.getMonth();
+      showingSearchResults = false;
+      renderCalendar();
+      renderResults();
     });
-    title = searchTerm ? "搜索结果" :
-      `${viewDate.getFullYear()} 年 ${viewDate.getMonth()+1} 月活动`;
-  }
 
-  list.sort((a,b) => a.date.localeCompare(b.date) ||
-    a.title.localeCompare(b.title));
+    $("todayBtn").addEventListener("click", () => {
+      const today = new Date();
 
-  $("listTitle").textContent = title;
-  $("resultCount").textContent = `${list.length} 项`;
+      viewDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
 
-  if (!list.length) {
-    $("eventList").innerHTML =
-      `<div class="empty">${searchTerm
-        ? "没有找到符合条件的活动。"
-        : "这一天 / 这个月份暂时没有活动。"
-      }</div>`;
-    return;
-  }
+      searchTerm = "";
+      $("searchInput").value = "";
+      showingSearchResults = false;
 
-  $("eventList").innerHTML = list.slice(0,150).map(eventCard).join("") +
-    (list.length > 150
-      ? '<div class="empty">仅显示前 150 项，请缩小搜索范围。</div>'
-      : "");
-}
+      renderCalendar();
+      renderResults();
+    });
 
-function render() {
-  renderCalendar();
-  renderList();
-}
+    $("refreshBtn").addEventListener("click", loadData);
 
-$("prevBtn").addEventListener("click", () => {
-  viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth()-1, 1);
-  selectedDate = "";
-  render();
-});
+    $("searchInput").addEventListener("input", event => {
+      searchTerm = event.target.value.trim();
+      showingSearchResults = true;
+      renderCalendar();
+      renderResults();
+    });
 
-$("nextBtn").addEventListener("click", () => {
-  viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth()+1, 1);
-  selectedDate = "";
-  render();
-});
+    $("listBtn").addEventListener("click", () => {
+      $("resultsSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
 
-$("todayBtn").addEventListener("click", () => {
-  const now = new Date();
-  viewDate = new Date(now.getFullYear(), now.getMonth(), 1);
-  selectedDate = dateKey(now);
-  render();
-});
+    /* ==========================================
+       初始化
+       ========================================== */
 
-$("refreshBtn").addEventListener("click", loadData);
-$("searchInput").addEventListener("input", e => {
-  searchTerm = e.target.value.trim().toLowerCase();
-  render();
-});
+    renderCalendar();
+    renderResults();
+    loadData();
 
-loadData();
-setInterval(loadData, 5 * 60 * 1000);
-</script>
+    // 每五分钟自动刷新
+    setInterval(loadData, AUTO_REFRESH_MS);
+  </script>
 </body>
 </html>
